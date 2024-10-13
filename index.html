@@ -15,7 +15,12 @@
 
             // Redirect for iOS Safari
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                window.location.href = iosUrl;
+                // Open URL in a new tab to encourage opening in Safari (external browser)
+                window.open(iosUrl, '_blank');
+                setTimeout(function() {
+                    // If new tab fails (TikTok prevents new tabs), fallback to normal redirect
+                    window.location.href = iosUrl;
+                }, 500);
             }
             // Redirect for Android Chrome using intent
             else if (/android/i.test(userAgent)) {
